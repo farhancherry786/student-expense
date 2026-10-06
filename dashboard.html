@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Dashboard – SmartSpend{% endblock %}
+{% block content %}
+<div class="container-fluid py-4">
+  <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+    <div><h2 class="fw-bold mb-1">Dashboard</h2><p class="text-muted mb-0">Your current monthly financial overview.</p></div>
+    <div class="d-flex gap-2">
+      <a href="{{ url_for('transaction_form') }}" class="btn btn-primary"><i class="bi bi-plus"></i> Add Transaction</a>
+      <a href="{{ url_for('budget_page') }}" class="btn btn-outline-primary"><i class="bi bi-piggy-bank"></i> Set Budget</a>
+    </div>
+  </div>
+
+  <div id="budgetAlert"></div>
+
+  <div class="row g-3">
+    <div class="col-sm-6 col-xl-3"><div class="stat-card"><span>Total Income</span><h3 id="totalIncome">₹0</h3><i class="bi bi-arrow-down-left"></i></div></div>
+    <div class="col-sm-6 col-xl-3"><div class="stat-card"><span>Total Expenses</span><h3 id="totalExpense">₹0</h3><i class="bi bi-arrow-up-right"></i></div></div>
+    <div class="col-sm-6 col-xl-3"><div class="stat-card"><span>Monthly Budget</span><h3 id="budget">₹0</h3><i class="bi bi-piggy-bank"></i></div></div>
+    <div class="col-sm-6 col-xl-3"><div class="stat-card"><span>Remaining</span><h3 id="remaining">₹0</h3><i class="bi bi-wallet2"></i></div></div>
+  </div>
+
+  <div class="card mt-4 shadow-sm border-0">
+    <div class="card-body">
+      <div class="d-flex justify-content-between"><h5 class="fw-bold">Budget Progress</h5><strong id="percent">0%</strong></div>
+      <div class="progress mt-2" style="height:18px"><div id="progressBar" class="progress-bar" style="width:0%"></div></div>
+      <p id="statusText" class="text-muted mt-2 mb-0"></p>
+    </div>
+  </div>
+
+  <div class="row g-4 mt-1">
+    <div class="col-lg-5"><div class="card shadow-sm border-0 h-100"><div class="card-body"><h5 class="fw-bold">Category-wise Spending</h5><canvas id="categoryChart"></canvas><div id="categoryEmpty" class="text-muted text-center d-none py-4">No expenses this month.</div></div></div></div>
+    <div class="col-lg-7"><div class="card shadow-sm border-0 h-100"><div class="card-body"><h5 class="fw-bold">Daily Spending</h5><canvas id="dailyChart"></canvas></div></div></div>
+  </div>
+
+  <div class="card shadow-sm border-0 mt-4">
+    <div class="card-body"><h5 class="fw-bold">Smart Insight</h5><p id="insight" class="mb-0 text-muted">Loading...</p></div>
+  </div>
+
+  <div class="card shadow-sm border-0 mt-4">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center"><h5 class="fw-bold">Recent Transactions</h5><a href="{{ url_for('transactions_page') }}">View all</a></div>
+      <div class="table-responsive mt-2"><table class="table align-middle"><thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Note</th><th class="text-end">Amount</th></tr></thead><tbody id="recentBody"></tbody></table></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

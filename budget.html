@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Budget – SmartSpend{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="form-card">
+    <h2 class="fw-bold">Monthly Budget</h2>
+    <p class="text-muted">Set or update your budget for a month.</p>
+    <div id="budgetMessage"></div>
+    <form id="budgetForm">
+      <div class="row g-3">
+        <div class="col-md-4"><label class="form-label">Month</label><select id="month" class="form-select"></select></div>
+        <div class="col-md-4"><label class="form-label">Year</label><input id="year" class="form-control" type="number" min="2020" max="2100"></div>
+        <div class="col-md-4"><label class="form-label">Budget (₹)</label><input id="amount" class="form-control" type="number" min="1" step="0.01" required></div>
+      </div>
+      <button class="btn btn-primary mt-4">Save Budget</button>
+    </form>
+    <div class="budget-tip mt-4"><i class="bi bi-lightbulb"></i> Tip: Keep your budget realistic and review your category spending every week.</div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/budget.js') }}"></script>
+{% endblock %}
